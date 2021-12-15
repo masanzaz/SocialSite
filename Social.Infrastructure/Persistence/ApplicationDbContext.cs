@@ -2,6 +2,7 @@
 using Social.Application.Interfaces;
 using Social.Domain.Common;
 using Social.Domain.Entities;
+using Social.Domain.Entities.Auth;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,6 +57,13 @@ namespace Social.Infrastructure.Persistence
 
             return await base.SaveChangesAsync(cancellationToken);
         }
+        public DbSet<User> user { get; set; }
         public DbSet<Disability> disability { get; set; }
+        public DbSet<Role> role { get; set; }
+        public DbSet<UserRole> userRole { get; set; }
+        public DbSet<Genre> genre { get; set; }
+        public DbSet<Hobby> hobby { get; set; }
+        public DbSet<Person> person { get; set; }
+        public DbSet<PersonHobby> personHobbies { get; set; }
     }
 }

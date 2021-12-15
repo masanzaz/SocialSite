@@ -3,7 +3,6 @@ using Social.Application.Interfaces.Repositories;
 using Social.Domain.Entities;
 using Social.Infrastructure.Persistence;
 
-
 namespace Social.Infrastructure.Repositories
 {
     public class DisabilityRepository : Repository<Disability>, IDisabilityRepository
@@ -13,9 +12,5 @@ namespace Social.Infrastructure.Repositories
         {
             _disability = dbContext.Set<Disability>();
         }
-
-
-
-
     }
 }

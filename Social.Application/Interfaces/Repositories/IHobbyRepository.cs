@@ -2,7 +2,7 @@
 
 namespace Social.Application.Interfaces.Repositories
 {
-    public interface IDisabilityRepository : IRepository<Disability>
+    public interface IHobbyRepository : IRepository<Hobby>
     {
     }
 }

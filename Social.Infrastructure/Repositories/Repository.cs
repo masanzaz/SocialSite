@@ -59,7 +59,7 @@ namespace Social.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public virtual async Task<T> GetByIdAsync(object id)
+        public virtual async Task<T> GetByIdAsync(int id)
         {
             return await _context.Set<T>().FindAsync(id);
         }

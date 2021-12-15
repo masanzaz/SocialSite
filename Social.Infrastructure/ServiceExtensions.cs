@@ -24,6 +24,12 @@ namespace Social.Infrastructure
             #region Repositories
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IDisabilityRepository, DisabilityRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IGenreRepository, GenreRepository>();
+            services.AddTransient<IHobbyRepository, HobbyRepository>();
+            services.AddTransient<IPersonRepository, PersonRepository>();
+
+            services.AddTransient<IAccountService, AccountService>();
             #endregion
 
             return services;

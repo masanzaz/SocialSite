@@ -21,10 +21,11 @@ namespace Social.Application.Interfaces
 
         Task<IEnumerable<T>> GetPagedReponseAsync(int pageNumber, int pageSize);
 
-        Task<T> GetByIdAsync(object id);
+        Task<T> GetByIdAsync(int id);
 
         Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> predicate);
 
         Task<int> CountAsync();
+
     }
 }

@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
-using Social.Application.Exceptions;
-using Social.Application.Interfaces;
 using Social.Application.Interfaces.Repositories;
 using Social.Application.Parameters;
 using Social.Application.Wrappers;
-using Social.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 
 namespace Social.Application.Features.Disabilities.Queries
 {
