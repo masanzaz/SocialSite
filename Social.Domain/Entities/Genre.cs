@@ -1,4 +1,5 @@
 ﻿using Social.Domain.Common;
+using System.Collections.Generic;
 
 namespace Social.Domain.Entities
 {
@@ -6,5 +7,6 @@ namespace Social.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
     }
 }

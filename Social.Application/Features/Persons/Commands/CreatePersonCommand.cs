@@ -16,13 +16,12 @@ namespace Social.Application.Features.Persons.Commands
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public int GenreId { get; set; }
+        public int InterestedId { get; set; }
         public string FirstName { get; set; }
         public string LasName { get; set; }
         public string Image { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int[] hobbies { get; set; }
-
-
 
     }
     public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, Response<int>>

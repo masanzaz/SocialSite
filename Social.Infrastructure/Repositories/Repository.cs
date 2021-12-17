@@ -69,9 +69,9 @@ namespace Social.Infrastructure.Repositories
             return await _context.Set<T>().SingleOrDefaultAsync(predicate).ConfigureAwait(false);
         }
 
-        public Task<int> CountAsync()
+        public async Task<int> CountAsync()
         {
-            return _context.disability.CountAsync();
+            return await _context.disability.CountAsync();
         }
 
     }

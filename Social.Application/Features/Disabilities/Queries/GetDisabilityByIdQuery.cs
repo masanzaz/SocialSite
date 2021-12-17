@@ -24,9 +24,9 @@ namespace Social.Application.Features.Disabilities.Queries
             public async Task<Response<DisabilityViewModel>> Handle(GetDisabilityByIdQuery query, CancellationToken cancellationToken)
             {
                 Disability disability = await _disabilityRepository.GetByIdAsync(query.Id);
-                var model = _mapper.Map<DisabilityViewModel>(disability);
                 if (disability == null) throw new ApiException($"Disability Not Found.");
-                return new Response<DisabilityViewModel> (model);
+                var model = _mapper.Map<DisabilityViewModel>(disability);
+                return new Response<DisabilityViewModel>(model);
             }
         }
 

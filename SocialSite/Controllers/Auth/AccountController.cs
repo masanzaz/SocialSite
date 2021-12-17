@@ -14,12 +14,6 @@ namespace SocialSite.Controllers.Auth
             return Ok(await Mediator.Send(request));
         }
 
-        [HttpPost("register-person")]
-        public async Task<IActionResult> RegisterPerson(CreatePersonCommand request)
-        {
-            return Ok(await Mediator.Send(request));
-        }
-
         [HttpPost("confirm-phoneNumber")]
         public async Task<IActionResult> ConfirmPhoneNumber(ConfirmPhoneNumberCommand request)
         {

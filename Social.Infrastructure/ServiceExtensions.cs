@@ -28,7 +28,8 @@ namespace Social.Infrastructure
             services.AddTransient<IGenreRepository, GenreRepository>();
             services.AddTransient<IHobbyRepository, HobbyRepository>();
             services.AddTransient<IPersonRepository, PersonRepository>();
-
+            services.AddTransient<IMatchRepository, MatchRepository>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
             services.AddTransient<IAccountService, AccountService>();
             #endregion
 

@@ -1,4 +1,6 @@
-﻿using Social.Domain.Entities;
+﻿using Social.Application.Features.Matches;
+using Social.Application.Features.Persons;
+using Social.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +13,9 @@ namespace Social.Application.Interfaces.Repositories
         Task<Person> GetPersonByEmail(string email);
 
         Task<Person> GetPersonByPhoneNumber(string phoneNumber);
+
+        Task<PersonViewModel> GetPersonByIdWithDetails(int personId);
+
+        Task<IEnumerable<PersonViewModel>> GetNoMatchesPerson(int personId, int pageNumber, int pageSize);
     }
 }
