@@ -18,13 +18,13 @@ namespace SocialSite.Controllers
             return Ok(await Mediator.Send(request));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetPersonById/{id}")]
         public async Task<IActionResult> GetPersonById(int id)
         {
             return Ok(await Mediator.Send(new GetPersonByIdQuery { Id = id }));
         }
 
-        [HttpGet("{get-matches}")]
+        [HttpGet(" GetMatches/{filter}")]
         public async Task<IActionResult> GetMatchesByPersonId([FromQuery] GetMessagesParameter filter)
         {
             return Ok(await Mediator.Send(new GetMatchesByPersonIdQuery { parameter = filter }));

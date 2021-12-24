@@ -18,6 +18,7 @@ namespace Social.Domain.Entities
         public virtual Genre Genre { get; set; }
         public int InterestedId { get; set; }
         public virtual IList<PersonHobby> Hobbies { get; set; }
+        public virtual IList<PersonDisability> Disabilities { get; set; }
         public virtual IList<Match> Receiver { get; set; }
         public virtual IList<Match> Senders { get; set; }
     }

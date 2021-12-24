@@ -22,6 +22,7 @@ namespace Social.Application.Features.Persons.Commands
         public string Image { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int[] hobbies { get; set; }
+        public int[] disabilities { get; set; }
 
     }
     public class CreatePersonCommandHandler : IRequestHandler<CreatePersonCommand, Response<int>>
@@ -55,6 +56,7 @@ namespace Social.Application.Features.Persons.Commands
             user = await _userRepository.AddPersonRol(user);
             person.User = user;
             person = await _personRepository.AddPersonHobbies(person, request.hobbies);
+            person = await _personRepository.AddPersonDisabilities(person, request.disabilities);
             await _personRepository.AddAsync(person);
 
             return new Response<int>(person.Id);

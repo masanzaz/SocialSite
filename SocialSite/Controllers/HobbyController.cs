@@ -8,7 +8,7 @@ namespace SocialSite.Controllers
     public class HobbyController : BaseApiController
     {
         [HttpGet]
-        public async Task<IActionResult> GetHobbies()
+        public async Task<IActionResult> GetAllHobbies()
         {
             return Ok(await Mediator.Send(new GetHobbyAllQuery()));
         }

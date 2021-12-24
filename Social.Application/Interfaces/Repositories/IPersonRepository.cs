@@ -10,6 +10,8 @@ namespace Social.Application.Interfaces.Repositories
     {
         Task<Person> AddPersonHobbies(Person person, IList<int> hobbies);
 
+        Task<Person> AddPersonDisabilities(Person person, IList<int> disabilities);
+
         Task<Person> GetPersonByEmail(string email);
 
         Task<Person> GetPersonByPhoneNumber(string phoneNumber);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Social.Application.Exceptions;
+using Social.Application.Features.Disabilities;
 using Social.Application.Features.Hobbies;
 using Social.Application.Features.Matches;
 using Social.Application.Features.Persons;
@@ -35,10 +36,23 @@ namespace Social.Infrastructure.Repositories
             return person;
         }
 
+        public async Task<Person> AddPersonDisabilities(Person person, IList<int> disabilities)
+        {
+            person.Hobbies = new List<PersonHobby>();
+            foreach (var disabilityId in disabilities)
+            {
+                var disability = await _context.disability.FirstOrDefaultAsync(x => x.Id == disabilityId);
+                if (disability == null)
+                    throw new NotFoundException($"Disability - {disabilityId} is not found");
+                person.Disabilities.Add(new PersonDisability { Person = person, Disability = disability });
+            }
+            return person;
+        }
+
         public async Task<IEnumerable<PersonViewModel>> GetNoMatchesPerson(int personId, int pageNumber, int pageSize)
         {
             var person = await _person.FirstOrDefaultAsync(x => x.Id == personId);
-            if(person == null)
+            if (person == null)
                 throw new NotFoundException($"Person - {personId} is not found");
 
             var personww = await _person.Where(x => x.Id != personId).Select(x =>
@@ -73,7 +87,8 @@ namespace Social.Infrastructure.Repositories
                               GenreId = x.GenreId,
                               InterestedId = x.InterestedId,
                               GenreName = x.Genre.Name,
-                              hobbies = x.Hobbies.Select(s => new HobbyViewModel { Id = s.HobbyId, Image = s.Hobby.Image, Name = s.Hobby.Name }).ToList()
+                              Hobbies = x.Hobbies.Select(s => new HobbyViewModel { Id = s.HobbyId, Image = s.Hobby.Image, Name = s.Hobby.Name }).ToList(),
+                              Disabilities = x.Disabilities.Select(s => new DisabilityViewModel { Id = s.DisabilityId, Description = s.Disability.Description, Name = s.Disability.Name }).ToList()
                           }).FirstOrDefaultAsync();
         }
 
