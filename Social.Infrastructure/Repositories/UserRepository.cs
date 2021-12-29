@@ -46,11 +46,15 @@ namespace Social.Infrastructure.Repositories
 
         public bool IsUniqueEmail(string email)
         {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
             return _user.AnyAsync(p => p.Email == email).Result;
         }
 
         public bool IsUniquePhoneNumber(string phoneNumber)
         {
+            if (string.IsNullOrWhiteSpace(phoneNumber))
+                return false;
             return _user.AnyAsync(p => p.PhoneNumber == phoneNumber).Result;
         }
     }

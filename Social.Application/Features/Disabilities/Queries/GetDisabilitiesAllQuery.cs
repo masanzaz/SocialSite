@@ -14,12 +14,12 @@ namespace Social.Application.Features.Disabilities.Queries
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
     }
-    public class GetAllProductsQueryHandler : IRequestHandler<GetDisabilitiesAllQuery, PagedResponse<IEnumerable<DisabilityViewModel>>>
+    public class GetDisabilitiesAllQueryHandler : IRequestHandler<GetDisabilitiesAllQuery, PagedResponse<IEnumerable<DisabilityViewModel>>>
     {
         private readonly IDisabilityRepository _disabilityRepository;
         private readonly IMapper _mapper;
 
-        public GetAllProductsQueryHandler(IDisabilityRepository disabilityRepository, IMapper mapper)
+        public GetDisabilitiesAllQueryHandler(IDisabilityRepository disabilityRepository, IMapper mapper)
         {
             _disabilityRepository = disabilityRepository;
             _mapper = mapper;

@@ -23,7 +23,8 @@ namespace Social.Infrastructure.Repositories
             return await _match.FirstOrDefaultAsync(x => x.SenderId == senderId && x.ReceiverId == receiverId);
         }
 
-        public async Task<IEnumerable<MatchViewModel>> GetMatchesByPersonId(int personId, int pageNumber, int pageSize)
+        public async Task<IEnumerable<MatchViewModel>> 
+            GetMatchesByPersonId(int personId, int pageNumber, int pageSize)
         {
             var matchBySender = await _match.Where(x => x.SenderId == personId && x.IsMatch == true)
                             .Select(x =>

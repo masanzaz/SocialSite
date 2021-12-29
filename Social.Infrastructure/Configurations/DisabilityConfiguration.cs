@@ -10,8 +10,12 @@ namespace Social.Infrastructure.Configurations
         {
             builder.ToTable("ss_disability");
             builder.Property(t => t.Name)
-                .HasMaxLength(100)
+                .HasMaxLength(20)
                 .IsRequired();
+            builder.Property(t => t.Icon)
+                .HasMaxLength(100);
+            builder.Property(t => t.Description)
+                .HasMaxLength(100);
         }
     }
 }

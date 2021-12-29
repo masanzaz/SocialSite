@@ -26,7 +26,8 @@ namespace Social.Application.Mappings
             CreateMap<Person, PersonViewModel>().ReverseMap();
             CreateMap<Message, MessagesViewModel>().ReverseMap();
             CreateMap<CreatePersonCommand, Person>()
-                .ForMember(x => x.Hobbies, y => y.Ignore());
+                .ForMember(x => x.Hobbies, y => y.Ignore())
+                .ForMember(x => x.Disabilities, y => y.Ignore());
             CreateMap<CreateUserCommand, User>()
                 .ForMember(x => x.Roles, y => y.Ignore());
             CreateMap<CreateMatchCommand, Match>();

@@ -13,6 +13,8 @@ namespace Social.Domain.Entities
         public string FirstName { get; set; }
         public string LasName { get; set; }
         public string Image { get; set; }
+        public string About { get; set; }
+        public string City { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public int GenreId { get; set; }
         public virtual Genre Genre { get; set; }

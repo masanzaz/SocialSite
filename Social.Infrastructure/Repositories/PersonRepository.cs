@@ -4,9 +4,11 @@ using Social.Application.Features.Disabilities;
 using Social.Application.Features.Hobbies;
 using Social.Application.Features.Matches;
 using Social.Application.Features.Persons;
+using Social.Application.Interfaces;
 using Social.Application.Interfaces.Repositories;
 using Social.Domain.Entities;
 using Social.Infrastructure.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,9 +19,11 @@ namespace Social.Infrastructure.Repositories
     {
         private readonly DbSet<Person> _person;
         private readonly ApplicationDbContext _context;
-        public PersonRepository(ApplicationDbContext dbContext) : base(dbContext)
+        private readonly IAccountService _accountService;
+        public PersonRepository(ApplicationDbContext dbContext, IAccountService accountService) : base(dbContext)
         {
             _context = dbContext;
+            _accountService = accountService;
             _person = dbContext.Set<Person>();
         }
 
@@ -38,7 +42,7 @@ namespace Social.Infrastructure.Repositories
 
         public async Task<Person> AddPersonDisabilities(Person person, IList<int> disabilities)
         {
-            person.Hobbies = new List<PersonHobby>();
+            person.Disabilities = new List<PersonDisability>();
             foreach (var disabilityId in disabilities)
             {
                 var disability = await _context.disability.FirstOrDefaultAsync(x => x.Id == disabilityId);
@@ -54,18 +58,24 @@ namespace Social.Infrastructure.Repositories
             var person = await _person.FirstOrDefaultAsync(x => x.Id == personId);
             if (person == null)
                 throw new NotFoundException($"Person - {personId} is not found");
+          
+            //  var personView = await _person.Where(x => x.Id != personId && x.GenreId == person.InterestedId)
+            var personView = await _person.Where(x => x.Id != personId)
+                .Select(x =>
+                 new PersonViewModel
+                 {
+                     id        = x.Id,
+                     FirstName = x.FirstName,
+                     LasName = x.LasName,
+                     Image = x.Image,
+                     City = x.City,
+                     About = x.About,
+                     Age = _accountService.GetAge(x.DateOfBirth?? DateTime.MinValue),
+                     GenreId = x.GenreId,
+                     GenreName = x.Genre.Name
+                 }).ToListAsync();
 
-            var personww = await _person.Where(x => x.Id != personId).Select(x =>
-             new PersonViewModel
-             {
-                 FirstName = x.FirstName,
-                 LasName = x.LasName,
-                 Image = x.Image,
-                 GenreId = x.GenreId,
-                 GenreName = x.Genre.Name
-             }).FirstOrDefaultAsync();
-
-            return null;
+            return personView;
         }
 
         public async Task<Person> GetPersonByEmail(string email)
@@ -85,6 +95,8 @@ namespace Social.Infrastructure.Repositories
                               LasName = x.LasName,
                               Image = x.Image,
                               GenreId = x.GenreId,
+                              About = x.About,
+                              City = x.City,
                               InterestedId = x.InterestedId,
                               GenreName = x.Genre.Name,
                               Hobbies = x.Hobbies.Select(s => new HobbyViewModel { Id = s.HobbyId, Image = s.Hobby.Image, Name = s.Hobby.Name }).ToList(),
@@ -98,6 +110,11 @@ namespace Social.Infrastructure.Repositories
             if (user == null)
                 return null;
             return await _person.FirstOrDefaultAsync(x => x.UserId == user.Id);
+        }
+
+        public async Task<int> GetNoMatchesPerson(int personId)
+        {
+            return await _person.CountAsync(x => x.Id != personId && x.GenreId == personId);
         }
     }
 }

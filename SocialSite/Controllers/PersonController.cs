@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Social.Application.Features.Matches.Queries;
 using Social.Application.Features.Messages;
+using Social.Application.Features.Persons;
 using Social.Application.Features.Persons.Commands;
 using Social.Application.Features.Persons.Queries;
 using Social.Application.Parameters;
@@ -24,10 +25,16 @@ namespace SocialSite.Controllers
             return Ok(await Mediator.Send(new GetPersonByIdQuery { Id = id }));
         }
 
-        [HttpGet(" GetMatches/{filter}")]
+        [HttpGet("GetMatches")]
         public async Task<IActionResult> GetMatchesByPersonId([FromQuery] GetMessagesParameter filter)
         {
             return Ok(await Mediator.Send(new GetMatchesByPersonIdQuery { parameter = filter }));
+        }
+
+        [HttpGet("GetNoMatches")]
+        public async Task<IActionResult> GetNoMatchesPerson([FromQuery] GetPersonsParameter filter)
+        {
+            return Ok(await Mediator.Send(new GetPersonsByInterestQuery { parameter = filter }));
         }
     }
 }
