@@ -18,8 +18,8 @@ namespace Social.Application.Features.Persons
         public int GenreId { get; set; }
         public int Distance { get; set; }
         public string GenreName { get; set; }
-        public List<HobbyViewModel> Hobbies { get; set; }
-        public List<DisabilityViewModel> Disabilities { get; set; }
+        public List<int> hobbies { get; set; }
+        public List<int> disabilities { get; set; }
 
     }
 }

@@ -18,6 +18,8 @@ namespace Social.Application.Interfaces.Repositories
 
         Task<PersonViewModel> GetPersonByIdWithDetails(int personId);
 
+        Task<PersonViewModel> GetPersonByPhoneWithDetails(string phoneNumber);
+
         Task<IEnumerable<PersonViewModel>> GetNoMatchesPerson(int personId, int pageNumber, int pageSize);
 
         Task<int> GetNoMatchesPerson(int personId);

@@ -41,7 +41,7 @@ namespace Social.Application.Features.Matches.Commands
 
             var match = await _matchRepository.GetBySenderAsync(request.SenderId, request.ReceiverId);
             if (match != null)
-                return new Response<int>(match.Id);
+                return new Response<int>(0);
 
             match = await _matchRepository.GetBySenderAsync(request.ReceiverId, request.SenderId);
             if (match != null)
@@ -55,7 +55,7 @@ namespace Social.Application.Features.Matches.Commands
             match.IsMatch = false;
             await _matchRepository.AddAsync(match);
 
-            return new Response<int>(match.Id);
+            return new Response<int>(0);
         }
     }
 }

@@ -17,14 +17,17 @@ namespace Social.Infrastructure.Repositories
 {
     public class PersonRepository : Repository<Person>, IPersonRepository
     {
-        private readonly DbSet<Person> _person;
         private readonly ApplicationDbContext _context;
+        private readonly IDateTime _dateTime;
+        private readonly ICurrentUserService _currentUserService;
+
+
         private readonly IAccountService _accountService;
         public PersonRepository(ApplicationDbContext dbContext, IAccountService accountService) : base(dbContext)
         {
             _context = dbContext;
             _accountService = accountService;
-            _person = dbContext.Set<Person>();
+
         }
 
         public async Task<Person> AddPersonHobbies(Person person, IList<int> hobbies)
@@ -55,22 +58,22 @@ namespace Social.Infrastructure.Repositories
 
         public async Task<IEnumerable<PersonViewModel>> GetNoMatchesPerson(int personId, int pageNumber, int pageSize)
         {
-            var person = await _person.FirstOrDefaultAsync(x => x.Id == personId);
+            var person = await _context.person.FirstOrDefaultAsync(x => x.Id == personId);
             if (person == null)
                 throw new NotFoundException($"Person - {personId} is not found");
-          
+
             //  var personView = await _person.Where(x => x.Id != personId && x.GenreId == person.InterestedId)
-            var personView = await _person.Where(x => x.Id != personId)
+            var personView = await _context.person.Where(x => x.Id != personId)
                 .Select(x =>
                  new PersonViewModel
                  {
-                     id        = x.Id,
+                     id = x.Id,
                      FirstName = x.FirstName,
                      LasName = x.LasName,
                      Image = x.Image,
                      City = x.City,
                      About = x.About,
-                     Age = _accountService.GetAge(x.DateOfBirth?? DateTime.MinValue),
+                     Age = _accountService.GetAge(x.DateOfBirth ?? DateTime.MinValue),
                      GenreId = x.GenreId,
                      GenreName = x.Genre.Name
                  }).ToListAsync();
@@ -83,14 +86,15 @@ namespace Social.Infrastructure.Repositories
             var user = await _context.user.FirstOrDefaultAsync(x => x.Email == email);
             if (user == null)
                 return null;
-            return await _person.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            return await _context.person.FirstOrDefaultAsync(x => x.UserId == user.Id);
         }
 
         public async Task<PersonViewModel> GetPersonByIdWithDetails(int personId)
         {
-            return await _person.Where(x => x.Id == personId).Select(x =>
+            return await _context.person.Where(x => x.Id == personId).Select(x =>
                           new PersonViewModel
                           {
+                              id = x.Id,
                               FirstName = x.FirstName,
                               LasName = x.LasName,
                               Image = x.Image,
@@ -99,9 +103,32 @@ namespace Social.Infrastructure.Repositories
                               City = x.City,
                               InterestedId = x.InterestedId,
                               GenreName = x.Genre.Name,
-                              Hobbies = x.Hobbies.Select(s => new HobbyViewModel { Id = s.HobbyId, Image = s.Hobby.Image, Name = s.Hobby.Name }).ToList(),
-                              Disabilities = x.Disabilities.Select(s => new DisabilityViewModel { Id = s.DisabilityId, Description = s.Disability.Description, Name = s.Disability.Name }).ToList()
+                              hobbies = x.Hobbies.Select(s => s.HobbyId).ToList(),
+                              disabilities = x.Disabilities.Select(s => s.DisabilityId).ToList()
                           }).FirstOrDefaultAsync();
+        }
+
+        public async Task<PersonViewModel> GetPersonByPhoneWithDetails(string phoneNumber)
+        {
+
+            var user = _context.user.FirstOrDefault(x => x.PhoneNumber == phoneNumber);
+            if (user == null)
+                throw new NotFoundException("The phone number does not exist");
+            return await _context.person.Where(x => x.UserId == user.Id).Select(x =>
+              new PersonViewModel
+              {
+                  id = x.Id,
+                  FirstName = x.FirstName,
+                  LasName = x.LasName,
+                  Image = x.Image,
+                  GenreId = x.GenreId,
+                  About = x.About,
+                  City = x.City,
+                  InterestedId = x.InterestedId,
+                  GenreName = x.Genre.Name,
+                  hobbies = x.Hobbies.Select(s => s.HobbyId).ToList(),
+                  disabilities = x.Disabilities.Select(s => s.DisabilityId).ToList()
+              }).FirstOrDefaultAsync();
         }
 
         public async Task<Person> GetPersonByPhoneNumber(string phoneNumber)
@@ -109,12 +136,12 @@ namespace Social.Infrastructure.Repositories
             var user = await _context.user.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
             if (user == null)
                 return null;
-            return await _person.FirstOrDefaultAsync(x => x.UserId == user.Id);
+            return await _context.person.FirstOrDefaultAsync(x => x.UserId == user.Id);
         }
 
         public async Task<int> GetNoMatchesPerson(int personId)
         {
-            return await _person.CountAsync(x => x.Id != personId && x.GenreId == personId);
+            return await _context.person.CountAsync(x => x.Id != personId && x.GenreId == personId);
         }
     }
 }

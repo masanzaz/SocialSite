@@ -25,6 +25,12 @@ namespace SocialSite.Controllers
             return Ok(await Mediator.Send(new GetPersonByIdQuery { Id = id }));
         }
 
+        [HttpGet("GetPersonByPhone/{phoneNumber}")]
+        public async Task<IActionResult> GetPersonByPhone(string phoneNumber)
+        {
+            return Ok(await Mediator.Send(new GetPersonByPhoneQuery { phoneNumber = phoneNumber }));
+        }
+
         [HttpGet("GetMatches")]
         public async Task<IActionResult> GetMatchesByPersonId([FromQuery] GetMessagesParameter filter)
         {
