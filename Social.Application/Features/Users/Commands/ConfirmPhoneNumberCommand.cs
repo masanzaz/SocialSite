@@ -29,7 +29,7 @@ namespace Social.Application.Features.Users.Commands
 
         public async Task<Response<bool>> Handle(ConfirmPhoneNumberCommand request, CancellationToken cancellationToken)
         {
-            _accountService.ConfirmPhoneNumber(request.phoneNumber, request.code);
+            var response = await _accountService.ConfirmPhoneNumber(request.phoneNumber, request.code);
 
 
             // return new Response<int>(true);
