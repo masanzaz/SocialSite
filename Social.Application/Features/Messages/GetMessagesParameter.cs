@@ -5,5 +5,6 @@ namespace Social.Application.Features.Messages
     public class GetMessagesParameter : RequestParameter
     {
         public int MatchId { get; set; }
+        public int PersonId { get; set; }
     }
 }

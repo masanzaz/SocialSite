@@ -7,9 +7,10 @@ namespace Social.Application.Features.Messages
     {
         public int Id { get; set; }
         public int MatchId { get; set; }
-        public MessageStatus Status { get; set; }
+        public bool Status { get; set; }
         public string Content { get; set; }
+        public string Time { get; set; }
         public DateTime CreatedAt { get; set; }
-
+        public bool FromOther { get; set; }
     }
 }

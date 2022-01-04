@@ -1,4 +1,5 @@
 ﻿using Social.Domain.Common;
+using System.Collections.Generic;
 
 namespace Social.Domain.Entities
 {
@@ -10,5 +11,6 @@ namespace Social.Domain.Entities
         public int ReceiverId { get; set; }
         public virtual Person Receiver { get; set; }
         public bool IsMatch { get; set; }
+        public virtual IList<Message> Messages { get; set; }
     }
 }

@@ -76,7 +76,9 @@ namespace Social.Infrastructure.Repositories
                      Age = _accountService.GetAge(x.DateOfBirth ?? DateTime.MinValue),
                      GenreId = x.GenreId,
                      GenreName = x.Genre.Name
-                 }).ToListAsync();
+                 }).Where(l=> !_context.match.Any(x => x.SenderId == personId && x.ReceiverId == l.id))
+                 .Where(l => !_context.match.Any(x => x.ReceiverId == personId && x.SenderId == l.id && x.IsMatch == true))
+                .ToListAsync();
 
             return personView;
         }

@@ -13,5 +13,7 @@ namespace Social.Application.Interfaces
         //  Task<Response<string>> ConfirmPhoneNumber(string phoneNumber, string code);
         Task<Response<bool>> ConfirmPhoneNumber(string phoneNumber, string code);
         int? GetAge(DateTime dateOfBirth);
+        string GetTime(DateTime start);
+        string GetLocalPath(string file, string name);
     }
 }

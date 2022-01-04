@@ -13,6 +13,7 @@ namespace Social.Application.Features.Messages.Commands
     public class CreateMessageCommand : IRequest<Response<int>>
     {
         public int MatchId { get; set; }
+        public int SenderId { get; set; }
         public string Content { get; set; }
     }
     public class CreateMessageCommandHandler : IRequestHandler<CreateMessageCommand, Response<int>>

@@ -30,6 +30,13 @@ namespace SocialSite.Controllers
             return Ok(await Mediator.Send(new GetMessagesByMatchIdQuery() { parameter = filter }));
         }
 
+        [HttpGet("getLastMessages")]
+        public async Task<IActionResult> GetLastMessages([FromQuery] GetMessagesParameter filter)
+        {
+            return Ok(await Mediator.Send(new GetLastMessagesQuery() { parameter = filter }));
+        }
+
+
         [HttpDelete("cancel-match")]
         public async Task<IActionResult> CancelMatch(int id)
         {

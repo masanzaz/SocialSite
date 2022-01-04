@@ -19,6 +19,13 @@ namespace SocialSite.Controllers
             return Ok(await Mediator.Send(request));
         }
 
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdatePerson(UpdatePersonCommand request)
+        {
+            return Ok(await Mediator.Send(request));
+        }
+
+
         [HttpGet("GetPersonById/{id}")]
         public async Task<IActionResult> GetPersonById(int id)
         {

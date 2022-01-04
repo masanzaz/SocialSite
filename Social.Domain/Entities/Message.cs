@@ -8,6 +8,7 @@ namespace Social.Domain.Entities
     {
         public int Id { get; set; }
         public int MatchId { get; set; }
+        public int SenderId { get; set; }
         public virtual Match Match { get; set; }
         public MessageStatus Status { get; set; }
         public string Content { get; set; }

@@ -10,5 +10,6 @@ namespace Social.Application.Interfaces.Repositories
         Task<Match> GetBySenderAsync(int senderId, int reciverId);
         Task<IEnumerable<MatchViewModel>> GetMatchesByPersonId(int personId, int pageNumber, int pageSize);
         Task<int> CountByPersonId(int personId);
+
     }
 }

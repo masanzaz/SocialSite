@@ -8,10 +8,14 @@ namespace Social.Application.Features.Matches
 {
     public class MatchViewModel
     {
-        public int Id { get; set; }
-        public int PersonId { get; set; }
-        public string PersonName { get; set; }
-        public string PersonImage { get; set; }
+        public int MatchId { get; set; }
+        public int id { get; set; }
+        public int? Age { get; set; }
+        public string FirstName { get; set; }
+        public string LasName { get; set; }
+        public string Image { get; set; }
+        public string About { get; set; }
+        public string City { get; set; }
 
     }
 }

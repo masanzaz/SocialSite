@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Social.Application.Features.Matches;
+using Social.Application.Interfaces;
 using Social.Application.Interfaces.Repositories;
 using Social.Domain.Entities;
 using Social.Infrastructure.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +14,11 @@ namespace Social.Infrastructure.Repositories
     public class MatchRepository : Repository<Match>, IMatchRepository
     {
         private readonly DbSet<Match> _match;
-        public MatchRepository(ApplicationDbContext dbContext) : base(dbContext)
+        private readonly IAccountService _accountService;
+        public MatchRepository(ApplicationDbContext dbContext, IAccountService accountService) : base(dbContext)
         {
             _match = dbContext.Set<Match>();
+            _accountService = accountService;
         }
 
 
@@ -30,20 +34,28 @@ namespace Social.Infrastructure.Repositories
                             .Select(x =>
                               new MatchViewModel
                               {
-                                  Id = x.Id,
-                                  PersonId = x.ReceiverId,
-                                  PersonName = x.Receiver.FirstName,
-                                  PersonImage = x.Receiver.Image
+                                  MatchId = x.Id,
+                                  id = x.ReceiverId,
+                                  FirstName = x.Receiver.FirstName,
+                                  LasName = x.Receiver.LasName,
+                                  Image = x.Receiver.Image,
+                                  City = x.Receiver.City,
+                                  About = x.Receiver.About,
+                                  Age = _accountService.GetAge(x.Receiver.DateOfBirth ?? DateTime.MinValue)
                               }).ToListAsync();
 
             var matchByReciver = await _match.Where(x => x.ReceiverId == personId && x.IsMatch == true)
                 .Select(x =>
                   new MatchViewModel
                   {
-                      Id = x.Id,
-                      PersonId = x.SenderId,
-                      PersonName = x.Sender.FirstName,
-                      PersonImage = x.Sender.Image
+                      MatchId = x.Id,
+                      id = x.SenderId,
+                      FirstName = x.Sender.FirstName,
+                      LasName = x.Sender.LasName,
+                      Image = x.Sender.Image,
+                      City = x.Sender.City,
+                      About = x.Sender.About,
+                      Age = _accountService.GetAge(x.Sender.DateOfBirth ?? DateTime.MinValue)
                   }).ToListAsync();
 
             if (matchBySender == null)

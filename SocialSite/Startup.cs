@@ -47,6 +47,8 @@ namespace SocialSite
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SocialSite v1"));
             }
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
 
             app.UseHttpsRedirection();
 

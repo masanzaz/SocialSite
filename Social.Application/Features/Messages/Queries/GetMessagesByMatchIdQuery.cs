@@ -33,7 +33,7 @@ namespace Social.Application.Features.Messages.Queries
             if (conversation == null)
                 throw new NotFoundException($"Conversation - {request.parameter.MatchId} not found!!");
 
-            var messages = await _messageRepository.GetMessagesByConversationId(request.parameter.MatchId, request.parameter.PageNumber, request.parameter.PageSize);
+            var messages = await _messageRepository.GetMessagesByConversationId(request.parameter.MatchId, request.parameter.PersonId, request.parameter.PageNumber, request.parameter.PageSize);
             var conversationViewModel = _mapper.Map<IEnumerable<MessagesViewModel>>(messages);
             var totalRecords = await _messageRepository.CountByConversationId(request.parameter.MatchId);
 

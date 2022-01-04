@@ -64,6 +64,9 @@ namespace Social.Infrastructure.Persistence
         public DbSet<Genre> genre { get; set; }
         public DbSet<Hobby> hobby { get; set; }
         public DbSet<Person> person { get; set; }
+        public DbSet<Match> match { get; set; }
+        public DbSet<Message> message { get; set; }
+
         public DbSet<PersonHobby> personHobbies { get; set; }
     }
 }
