@@ -45,7 +45,9 @@ namespace Social.Application.Features.Persons.Commands
             person.About = String.IsNullOrWhiteSpace(request.About) ? person.About : request.About;
             person.LasName = String.IsNullOrWhiteSpace(request.LasName) ? person.LasName : request.LasName;
             person.Image = _accountService.GetLocalPath(request.Image, request.id.ToString());
-            person.DateOfBirth = DateTime.Parse(request.DateOfBirth);
+            if (!String.IsNullOrWhiteSpace(request.DateOfBirth))
+                person.DateOfBirth = DateTime.Parse(request.DateOfBirth);
+
             await _personRepository.UpdateAsync(person);
 
             return new Response<int>(person.Id);

@@ -57,7 +57,7 @@ namespace Social.Application.Features.Persons.Commands
             person.User = user;
             person = await _personRepository.AddPersonHobbies(person, request.hobbies);
             person = await _personRepository.AddPersonDisabilities(person, request.disabilities);
-            person.Image = (person.GenreId == 1) ? "http://40.113.3.39/images/man_no_image.png" : "http://40.113.3.39/images/woman_no_image.png";
+            person.Image = (person.GenreId == 1) ? "images/man_no_image.png" : "images/woman_no_image.png";
             await _personRepository.AddAsync(person);
 
             return new Response<int>(person.Id);

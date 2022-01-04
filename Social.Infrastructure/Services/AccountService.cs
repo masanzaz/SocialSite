@@ -43,11 +43,11 @@ namespace Social.Infrastructure.Services
                     image = Image.FromStream(ms);
                     image.Save(fileName, ImageFormat.Jpeg);
                 }
-                return "http://40.113.3.39/images/image_" + name + ".jpeg";
+                return "images/image_" + name + ".jpeg";
             }
             catch (Exception ex)
             {
-                return "http://40.113.3.39/images/man_no_image.png";
+                return "images/man_no_image.png";
             }
         }
 
