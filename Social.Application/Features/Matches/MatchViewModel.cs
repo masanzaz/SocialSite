@@ -14,6 +14,7 @@ namespace Social.Application.Features.Matches
         public string FirstName { get; set; }
         public string LasName { get; set; }
         public string Image { get; set; }
+        public string MatchImage { get; set; }
         public string About { get; set; }
         public string City { get; set; }
 

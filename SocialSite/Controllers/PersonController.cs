@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Social.Application.Features.Matches;
 using Social.Application.Features.Matches.Queries;
 using Social.Application.Features.Messages;
 using Social.Application.Features.Persons;
@@ -43,6 +44,13 @@ namespace SocialSite.Controllers
         {
             return Ok(await Mediator.Send(new GetMatchesByPersonIdQuery { parameter = filter }));
         }
+
+        [HttpGet("GetMatchById")]
+        public async Task<IActionResult> GetMatchesByIdQuery([FromQuery] GetMatchParameter filter)
+        {
+            return Ok(await Mediator.Send(new GetMatchesByIdQuery { parameter = filter }));
+        }
+
 
         [HttpGet("GetNoMatches")]
         public async Task<IActionResult> GetNoMatchesPerson([FromQuery] GetPersonsParameter filter)
