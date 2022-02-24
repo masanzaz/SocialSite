@@ -19,7 +19,7 @@ namespace Social.Infrastructure
                 //b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
                 b => b.MigrationsAssembly("SocialSite")));
             services.AddTransient<IDateTime, DateTimeService>();
-
+            services.AddTransient<IAccountService, AccountService>();
 
             #region Repositories
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
@@ -30,7 +30,7 @@ namespace Social.Infrastructure
             services.AddTransient<IPersonRepository, PersonRepository>();
             services.AddTransient<IMatchRepository, MatchRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
-            services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IUserTokenRepository, UserTokenRepository>();
             #endregion
 
             return services;

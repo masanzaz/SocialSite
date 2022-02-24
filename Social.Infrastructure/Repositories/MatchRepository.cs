@@ -30,6 +30,8 @@ namespace Social.Infrastructure.Repositories
         public async Task<IEnumerable<MatchViewModel>> 
             GetMatchesByPersonId(int personId, int pageNumber, int pageSize)
         {
+
+
             var matchBySender = await _match.Where(x => x.SenderId == personId && x.IsMatch == true)
                             .Select(x =>
                               new MatchViewModel

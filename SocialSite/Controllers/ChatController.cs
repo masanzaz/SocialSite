@@ -4,6 +4,7 @@ using Social.Application.Features.Messages;
 using Social.Application.Features.Messages.Commands;
 using Social.Application.Features.Messages.Queries;
 using Social.Application.Parameters;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SocialSite.Controllers

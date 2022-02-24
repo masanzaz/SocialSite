@@ -66,7 +66,7 @@ namespace Social.Infrastructure.Persistence
         public DbSet<Person> person { get; set; }
         public DbSet<Match> match { get; set; }
         public DbSet<Message> message { get; set; }
-
+        public DbSet<UserToken> userToken { get; set; }
         public DbSet<PersonHobby> personHobbies { get; set; }
     }
 }

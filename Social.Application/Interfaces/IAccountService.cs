@@ -10,10 +10,10 @@ namespace Social.Application.Interfaces
 {
     public interface IAccountService
     {
-        //  Task<Response<string>> ConfirmPhoneNumber(string phoneNumber, string code);
-        Task<Response<bool>> ConfirmPhoneNumber(string phoneNumber, string code);
+        Task<Response<bool>> ConfirmPhoneNumber(string phoneNumber, string token);
         int? GetAge(DateTime dateOfBirth);
         string GetTime(DateTime start);
         string GetLocalPath(string file, string name);
+        string GenerateRamdomOtp();
     }
 }

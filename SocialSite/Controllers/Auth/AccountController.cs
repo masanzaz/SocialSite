@@ -14,8 +14,14 @@ namespace SocialSite.Controllers.Auth
             return Ok(await Mediator.Send(request));
         }
 
-        [HttpPost("confirm-phoneNumber")]
+        [HttpPost("ConfirmPhoneNumber")]
         public async Task<IActionResult> ConfirmPhoneNumber(ConfirmPhoneNumberCommand request)
+        {
+            return Ok(await Mediator.Send(request));
+        }
+
+        [HttpPost("ValidatePhoneNumber")]
+        public async Task<IActionResult> ValidatePhoneNumber(ValidatePhoneNumberCommand request)
         {
             return Ok(await Mediator.Send(request));
         }

@@ -1,41 +1,48 @@
 ﻿using Social.Application.Interfaces;
 using Social.Application.Wrappers;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using Twilio;
 using System.Threading.Tasks;
-using Twilio.Clients;
 using Twilio.Rest.Api.V2010.Account;
+using Social.Application.Interfaces.Repositories;
 
 namespace Social.Infrastructure.Services
 {
     public class AccountService : IAccountService
     {
-        public async Task<Response<bool>> ConfirmPhoneNumber(string phoneNumber, string otp)
+        public async Task<Response<bool>> ConfirmPhoneNumber(string phoneNumber, string token)
         {
-            //string accountSid = Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID");
-           // string authToken = Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN");
-
             string accountSid = "AC3905ac52ccab537530efcd8c8a8e6241";
             string authToken = "d156638373d0f3db6d345a57c46da69b";
-            string fromPhoneNumer = "d156638373d0f3db6d345a57c46da69b";
+            string fromPhoneNumer = "+14133442743";
+
+            phoneNumber = "+593"+ phoneNumber;
             TwilioClient.Init(accountSid, authToken);
             try
             {
                 var message = MessageResource.Create(
-                    body: "Your verification code is: " + otp,
+                    body: "Social Site - Your verification code is: " + token,
                     from: new Twilio.Types.PhoneNumber(fromPhoneNumer),
                     to: new Twilio.Types.PhoneNumber(phoneNumber)
                 );
-
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
                 return new Response<bool>(false);
             }
+
             return new Response<bool>(true);
+        }
+
+        public string GenerateRamdomOtp()
+        {
+            Random r = new Random();
+            int genRand = r.Next(0, 9999);
+            return genRand.ToString("D4");
         }
 
         public int? GetAge(DateTime dateOfBirth)
